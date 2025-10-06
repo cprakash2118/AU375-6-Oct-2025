@@ -59,15 +59,64 @@ server[e:f].lab.example.com
 
 :wq (Saved)
 
-$ ansible all -m command "uptime"
-$ ansible all -m shell "uptime ; date"
+$ ansible all -m command -a "uptime"
+Note: command module for single execution only
+
+$ ansible all -m shell -a "uptime ; date"
+NOte: shell module for multiple commands execution same time.
 
 $ ansible all -m ping 
 $ ansible prod -m ping 
+################################################
+
+1-) Verify ansible package (Installed or not).
+$ rpm -qa | grep ansible-navigator
+$ rpm -qa | grep ansible-core 
+
+2-) If not installed then install ansible-navigator and ansible-core packages.
+$ sudo dnf install ansible-navigator ansible-core -y 
+
+3-) Then verify ansible packages.
+$ rpm -qa | grep ansible-navigator
+$ rpm -qa | grep ansible-core 
+
+
+$ ansible --version
+
+************* ansible.cfg file priority:-
+
+1st & top priority:-
+
+- Define env variable - "ANSIBLE_CONFIG"
+  - How to verify the same variable ?
+   $ env | grep ANSIBLE_CONFIG
+  - Now define this env variable
+   $ export ANSIBLE_CONFIG=/tmp/var/ansible.cfg
+   $ env | grep ANSIBLE_CONFIG
+   ANSIBLE_CONFIG=/tmp/var/ansible.cfg 
+   
+- Once ANSIBLE_CONFIG variable defined then "ansible.cfg" file must be available on defined location.
+ $ touch /tmp/var/ansible.cfg
+
+
+2nd Priority:-
+Current working dir "ansible.cfg" file must be present.
+$ ls -l 
+ansible.cfg 
+$ pwd
+$ ansible --version 
+
+3rd Priority:-
+".ansible.cfg" must be present at user's home dir (Eg: /home/student/.ansible.cfg).
+
+
+4th and last Priority:-
+/etc/ansible/ansible.cfg 
 
 
 
-
+ 
+  
 
 	
 	
