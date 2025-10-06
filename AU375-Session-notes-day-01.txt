@@ -1,0 +1,17 @@
+https://github.com/cprakash2118/AU375-6-Oct-2025
+
+Point-01-)
+Product Name - Red Hat Ansible Automation Platform (AAP)
+Product Version - AAPv2.5 
+Reference link:-
+ - https://ansible.com 
+ - https://www.redhat.com/en/ansible-collaborative?intcmp=7015Y000003t7aWQAQ
+ - https://docs.ansible.com/
+ - https://docs.ansible.com/ansible/latest/index.html
+ 
+Login to ROL - RedHat Online Learning 
+ - https://rol.redhat.com
+ - Use Your Red Hat Login ID (RHL ID).
+ - Once login successful then lick on "Join" to get the Training "DashBoad".
+ - Click on "Lab"
+ - Click on "Resources" -> "BookSelf"  
