@@ -8,10 +8,67 @@ Reference link:-
  - https://www.redhat.com/en/ansible-collaborative?intcmp=7015Y000003t7aWQAQ
  - https://docs.ansible.com/
  - https://docs.ansible.com/ansible/latest/index.html
- 
+ Red Hat Ansible Automation Platform 2.5 AU374 
+
 Login to ROL - RedHat Online Learning 
  - https://rol.redhat.com
  - Use Your Red Hat Login ID (RHL ID).
  - Once login successful then lick on "Join" to get the Training "DashBoad".
  - Click on "Lab"
  - Click on "Resources" -> "BookSelf"  
+ 
+Point-02-)
+Classroom Environment:-
+ 1- Users detail- Login to servers/VMs:-
+	- UserName=student
+	  Password=student 
+      Note: student account having sudo access with password.
+	  - When use student account (ssh login - no password required, sudo required password)
+	
+	- UserName=devops 
+	  Password=redhat 
+      Note: devops account having sudo access without password.
+	  - When use "devops" account (ssh login & sudo access - no password required)
+
+  2- Servers/VMs details:- 
+  
+    workstation.lab.example.com    [jump server or control node]
+     NOte: Control node mean - Installed ansible "ansible-navigator & ansible-core" on specific server.
+	 FYI - ansible-navigator & ansible-core both are part of AAP.
+	 
+	servera-f.lab.example.com   [Managed hosts]
+	app.lab.example.com         [Automation HUb, Controller nodes]
+	git.lab.example.com         [Git repository]
+	
+#######################################################################
+
+LAB-01:-
+- Login to workstation node and open terminal.
+$ mkdir work ; cd work 
+$ touch inventory 
+$ vim inventory
+[prod]
+server[a:c].lab.example.com
+
+[dev]
+serverd.lab.example.com
+
+[test]
+server[e:f].lab.example.com
+
+
+:wq (Saved)
+
+$ ansible all -m command "uptime"
+$ ansible all -m shell "uptime ; date"
+
+$ ansible all -m ping 
+$ ansible prod -m ping 
+
+
+
+
+
+	
+	
+	
