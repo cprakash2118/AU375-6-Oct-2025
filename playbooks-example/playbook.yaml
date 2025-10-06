@@ -1,0 +1,10 @@
+---
+- name: Example playbook
+  hosts: dev 
+  tasks:
+    - name: Task-01 
+      ansible.builtin.debug:
+        msg: "This is my 1st task - task-01"
+    - name: Task-02 
+      ansible.builtin.debug:
+        msg: "This is my 2nd task - task-02"
