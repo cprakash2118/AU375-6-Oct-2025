@@ -98,7 +98,6 @@ $ ansible --version
 - Once ANSIBLE_CONFIG variable defined then "ansible.cfg" file must be available on defined location.
  $ touch /tmp/var/ansible.cfg
 
-
 2nd Priority:-
 Current working dir "ansible.cfg" file must be present.
 $ ls -l 
@@ -109,13 +108,125 @@ $ ansible --version
 3rd Priority:-
 ".ansible.cfg" must be present at user's home dir (Eg: /home/student/.ansible.cfg).
 
-
 4th and last Priority:-
 /etc/ansible/ansible.cfg 
 
 
-
+************* ansible-navigator.yml file priority:-
+ 1st priority - ANSIBLE_NAVIGATOR_CONFIG
+ $ export ANSIBLE_NAVIGATOR_CONFIG=/location/of/ansible-navigator.yaml 
  
+ 2nd Priority
+ Current working dir - ansible-navigator.yml must be present 
+ 
+ 3rd Priority
+ w.r.t user's home dir - /home/student/.ansible-navigator.yaml 
+
+#########################################################################################
+
+Play-01:-
+- Install Apache(httpd) and firewalld.
+- Start and enable apache and firewalld
+- Implement application (index.html with some contents).
+- Enable firewall port (http & https)
+
+Play-02:-
+- Verify the deployment.
+
+
+yum install abc xyz 
+or 
+
+yum install abc 
+yum install xyz
+
+----------
+Unit-1- Developing Playbooks with Ansible Automation Platform 2  
+ - Red Hat Ansible Automation Platform 2
+ - Running Playbooks with Automation Content Navigator
+ - Managing Ansible Project Materials Using Git
+ - Implementing Recommended Ansible Practices
+
+Product Level - 
+- Ansible Engine + Ansible Tower 
+- Ansible Automation Platform (AAP)
+- AAP's components.
+  1- Ansible Core 
+    - Defination:- Ansible Language + Runtime (CLI and core execution engine that understand playbooks, modules, tasks, and ansible YAML).
+	
+	- What is Contains:- Runtime, tasks/play parsing/inventory handling, and the core modules/plugins loader.
+	  In AAP2 the core runtime is the things that acutually execute tasks inside an execution environment.
+	  Execution environment is completely containerized.
+	  podman engine used for manage the containerized env.
+	
+	- Commons CLIs:-
+	  ansible (ad-hoc command)
+	  $ ansible dev -m shell -a "uptime" 
+	  $ ansible-galaxy 
+	  $ ansible-vault 
+	
+  2- Ansible Content Collections [Packaing & Distribution of automation contents]
+   - Defination:- The distribution format for ansible automation contents - A collection bundles modules, plugins, roles, playbooks, docs, tests, metadata.
+     
+	 mynamespace_mycollection/
+	    plugins/
+		roles/
+		docs/
+		galaxy.yaml 
+		
+	  - Install Collection 
+	  - Create Collection
+	  - Publish Collection
+	  - CLI interface - ansible-galaxy collection
+	  
+  3- Automation Execution Environment (EE)- [The runetime conatiner for automation]
+     Defination:- Container images that function as an ansible control node. Its contain "Ansible COre", ansible-runner, collections (Pyhton deps), system packages and coms custom binaries. 
+	 Execution Environment make automation reproducible and portable.
+	 
+	 - Ansible COre
+	 - COllections 
+	 - Python packages 
+	 - OS/system packages required by moduels.
+	 
+  
+  4- Execution Environment Builder (How to build EE)
+     Defination:- CLI tool that reads an EE defination files, generate a Containerfile/Dockerfile and build context, and builds and container images (Using podman). It automates installing collections, python deps, and system packages into the EE (Execution Environment) 
+  
+  5- Automation Content(s) Navigator (ansible-navigator).
+    To seperate ansible control node and ansible EE.
+	
+	$ ansible-navigator run 
+	$ ansible-navigator doc 
+	
+ 
+  6- Unified User Interface (AAP2 Unified UI/ Controller UI - Web based UI).
+     https://aap.lab.example.com - Web based UI.
+     Controller [Users/Teams/inventories/Projects/Templates/Credentials etc]	 
+  
+ 
+--------------------------------------------------
+-  Running Playbooks with Automation Content Navigator:-
+
+$ ansible-playbook playbook.yml -i inventory
+or 
+$ ansible-navigator run playbook.yml -i inventory -m stdout   [stdout - Out put on your console/screen]
+$ ansible-navigator run playbook.yml -i inventory 
+
+$ sudo dnf install ansible-navigator
+or
+$ sudo dnf install ansible-navigator ansible-core 
+Note: ansible-core generally installed with ansible-navigator only.
+
+
+$ 
+
+
+
+
+
+
+
+
   
 
 	
