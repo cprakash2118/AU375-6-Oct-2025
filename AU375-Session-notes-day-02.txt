@@ -1,0 +1,140 @@
+Quick Recap - 10/15 mins
+# Ansible Automation Platform:-
+ - Old - Ansible Engine + Ansible Tower:-
+ - AAP2.X - Modular, conatiner-based, scalable - Desinged for multi/hybrid cloud automation.
+ - It seperate the control, execution and content.
+
+# AAP2 - Installation Mothods:-
+  - Containerized 
+  - RPM based 
+  - OpenShift Operator deployment.
+  
+# AAP2 core components:-
+ 1- Ansible Core
+   - Engine which execute playbooks/roles/collections/modules/plugins 
+   - Loops, Conditional statements, and variable etc.
+   
+   Eg: ansible.builtin.copy/ansible.builtin.file 
+   
+ 2- Ansible Content COllection:-
+   - Moduler content bundles (roles/collections/modules/plugins) grouped by namespace.
+   - Collections are versioned, certified and independently upgradable. 
+    redhat.rhel_system_roles 
+
+ 3- Automation Execution Environment (EEs):-
+   - Container images that packages:-
+     - ansible-core
+     - Specific collection 
+     - Python/System dependencies.
+	 - Required tools/libs/bins etc.
+	 
+   - These EEs build on Red Hat UBI "Universal Base Image" 	
+   https://catalog.redhat.com/en/software/containers/ubi9/ubi/615bcf606feffc5384e8452e#get-this-image
+   As per LAB - aap.lab.example.com/ee-supported-rhel8:latest 
+   
+ 4- Execution Environment Builder:-
+    - It's utility/tool used for to build custom execution environment.
+	- Dependency files (build a custom image):-
+	   - Collection (requirements.yml)
+       - System/Python libs(requirements.txt)
+	- $ dnf install ansible-builder
+	  $ ansible-builder build -t app.lab.example.com/ee-image01:v1.3 .
+	  $ podman push app.lab.example.com/ee-image01:v1.3
+	  
+  5- Automation Content Navigator:-
+     - ansible-navigator run 
+	 - ansible-navigator doc 
+	 - ansible-navigator config 
+	  etc 
+	  
+	  Playbook execution (seperate the control node and Execution Environment)
+	  - Control node - ANsible installed 
+	  - Execution Environment - app.lab.example.com/ee-supported-rhel8:latest
+	  
+  6- Unified User Interface 
+     - Automation Controller  (user/Team/Project/Template/crdentials/inventories).
+	   The Orchestrator.
+	 - Private Automation HUb (EE/COllection etc)
+	  
+	  https://aap.lab.example.com [AAP web UI - Ansible Controller).
+	  admin/redhat 
+=================================================================================
+1.5. Managing Ansible Project Materials Using Git
+
+# Working Tree -> Staging Area -> Local Repository -> Remote Repository
+
+1- Working Tree:-
+   - This is where you actively edit/add or delete files.
+   - Project Directory 
+   - Changes here "working Tree" not yet tracked by GIT until your stage or Commit them.
+
+2- Staging Area:-
+   - Temporary holding zone for changes you plan to commit.
+   - You move file from "Working Tree -> Staging Area" using git add command.
+     $ git add filename   [Specific changes =
+     $ git add .          [All changes added]	 
+      Note: dir/subdir/subdir/files [ This also applicable.
+
+3- Local Repository:-
+   - Local database storing all commits,branches and history.
+   - Moving data from "Staging Area -> Local Repository" with "git commit" 
+    Eg:- git commit -m anyMessage
+	
+4- Remote Repository:- 
+   - Central repository hosted on GitHub, GitLab, or another server.
+   - Sync local commits here using "git push" and git pull update with git pull.
+   - Allow team collaboration and version  sharing.
+   
+
+- git add = Working Tree -> Staging Area 
+- git commit = Staging Area -> Local Repository
+or 
+- git commit -a working Tree to Local Repository
+- git push Local Repository -> Remote Repository
+
+- git clone URL 
+- git status 
+- git add file 
+- git rm file 
+- git reset 
+- git commit 
+- git push 
+- git pull 
+- git revert commit-hash
+- git init 
+- git log
+- git show commit-hash 
+
+-----------------------------------------------
+Working with Branches and reference:-
+- Branches let you develop new features/changes or test changes "Without touching your main code".
+- Once tested, you can merge your branche back to to the main line (Called "main or master").
+
+What is Branch?
+ - Branch is just a pointer to a specific commit in your Git history (Commit Tree).
+ - Each commit reporesents a snapshot of your repository at a specific point of time.
+ 
+What infomration Each commit contain:-
+Explaination:- Each commit carries important details so that GIT can track and referenceit properly.
+ 1-) Unique ID (Commit Hash).
+   - Every commit get a 40 Character SHA-1 hash (Unique hexadecimal string - Eg:- 6c06c2c..
+   - This hash represent the connets of the commit - if anythings changes then hash changes.
+ 
+ 2-) Changed files and excat modification:-
+   - Git records which file were modified, added or deleted in that commit.
+   
+ 3-) Parent Commit ID:-
+    - Each commit point back to it's parent, Linking the history togather.
+	- This is how Git builds a compelete chain of all changes.
+
+ 4-) Author & committer information:-
+    - Git stores who made the changes (author) and who commited then (commiter).
+	- Useful for tracking contribution in a team.
+	
+ 5-) Reference (Refs):-
+   - Reference is a human friendly name pointing to a commit.
+   - Common references are:
+     - Tag -> Make a specific release or versio  (v1.0,v2.3 etc).
+	 - Branches -> Track ongoing lines of deployment (main/features/login etc).
+	 
+#############
