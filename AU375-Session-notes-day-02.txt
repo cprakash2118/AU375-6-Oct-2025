@@ -138,3 +138,30 @@ Explaination:- Each commit carries important details so that GIT can track and r
 	 - Branches -> Track ongoing lines of deployment (main/features/login etc).
 	 
 #############
+ 1.7. Implementing Recommended Ansible Practices
+
+vim playbook.yaml 
+- name: PLaybook workflow 
+  hosts: prod 
+  tasks:
+   - name: Postfix is installed and updated
+     ansible.builtin.dnf: name=postfix state=latest
+     notify: restart_postfix
+	 
+   - name: Postfix is running
+     ansible.builtin.service: name=postfix state=started
+	 
+vim playbook.yaml 
+- name: PLaybook workflow 
+  hosts: prod 
+  tasks:
+   - name: Postfix is installed and updated
+     ansible.builtin.dnf: 
+	   name: postfix 
+	   state: latest
+     notify: restart_postfix
+	 
+   - name: Postfix is running
+     ansible.builtin.service: 
+	   name: postfix 
+	   state: started
