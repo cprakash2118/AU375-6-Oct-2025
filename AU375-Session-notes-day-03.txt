@@ -67,5 +67,34 @@ New AAP 2.X:-
 5- Custom EEs [via container images]
 
 ---------------
-Unit-4- Working with Ansible Configuration Settings 
+Unit-4- Working with Ansible Configuration Settings.
+
+"ansible-navigator config" - Help us for audit, troubleshooting, to understand Ansible COnfiguration values are currently active and used, and from where it loaded/came, and also whether they are default or override.
+
+- When you execute "ansible-navigator config", display all current Ansible configuration settings.
+- It shows values used by "ansible-navigator" & "ansible-core" engine it runs.
+PWD -  ansible.cfg 
+ANSIBLE_CONFIG = /localtion/of/ansible.cfg/file 
+ - CHeck if configuration values are defaults or customized.
+ - Identify whether a setting came from a configuration file or an environment varible.
+ - TS mode.
+ 
+- Common sources of Ansible Configuration [Priority sequence]
+  1- Environment Variables:-
+    ANSIBLE_FORKS=50, ANSIBLE_CONFIG, ANSIBLE_NAVIGATOR_CONFIG 
+  
+  2- Configuration file:-
+    /etc/ansible/ansible.cfg or a local ./ansible.cfg or ~/.ansible.cfg 
+	
+  3- Hard-coded Defaults:-
+    Built-in defaults from Ansible engine.
+	
+========================================
+ansible.cfg 
+ansible-navigator.yaml 
+inventory 
+playbook.yaml 
+
+ansible-navigator inventory -i inventory --list --yaml --mode stdout
+
   
