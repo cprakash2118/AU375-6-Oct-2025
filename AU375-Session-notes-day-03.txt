@@ -1,0 +1,71 @@
+Unit-3- Running Playbooks with Automation Controller:-
+#Explaining the Automation Controller Architecture.
+
+- 1- Overview of Automation Controller Architecture.
+  Purpose:- 
+  Automation Controller (Previously know as Ansible Tower) is the core componets of Red Hat Ansible Automation Platform 2.5.
+  It controls, schedules and execute Ansible Automation acorss systems.
+
+- 2  Decoupling COntrol plan and Execution plan.
+# Earlier Architecture  (Before AAP 2.0).
+    - In Ansible Tower 3.8 and earlier, the execution environment (Python + Ansible + Modules + dependencies) was tightly coupled to Ansible Tower (Tower node - Installed ansible Tower).
+
+    - If different playbooks required different dependencies, admin has to maintain "multiple python virtual environment" on the tower node.
+
+# New Architecture (AAP 2.X/ Automation Controller):-
+   - Execution environment is now decoupled from Controller.
+   - Controller = Control Plane [Handles scheduling, job delgation, and complete orchetration]
+   - Execution environment = Execution plane [Runs automations jobs in isolated, containerized environment]
+   
+   FYI- Modular,potable,scalable 
+
+-3 Automation Execution environment (EE).
+# What is this EE.
+  - Container images (COntainer Engine Docker/podman images) that includes:-
+    - Python runtime.
+    - Required ANsible moduels.
+    - COllection & dependencies.
+  - Pulled from Central conatiner registry and managed though "Automation Controller UI"
+  
+# What this matter.
+ - No need to install or maintain system-wide python packages.
+ - Consistent runtime environment for automations jobs.
+
+-4 Custom Execution environment:-
+# Creating Custom EEs.
+ - Build own EE with specific moduels/collections.
+ - After testing locally, oush the image to your container registry.
+ - Controller can then pull and use for automations jobs.
+ 
+ - Standardization 
+ - Flexibility 
+ - Reusability 
+
+-5 Automation Mesh:- (Distributed Execution):-
+  What its is?
+  - Distributed Architecture introduced in AAP 2 that sperates:-
+    Control Plane:- Start and schedules jobs.
+	Execution Plane:- Run automations jobs.
+	
+ - Control Nodes
+ - Execution Nodes 
+ - Communication (Control nodes and execution nodes communicate via "Ansible Mesh".
+ - Enabling secure, reliable jobs execution even across distributed env (Data Center/Cloud/Edge).
+
+New AAP 2.X:-
+- Containerized Execution environments.
+- Decoupled contole and execution plane.
+- Sscalble across multiple nodes.
+- Multi-node redundancy and load balancing.
+
+
+*********************
+1- Automation Controller - Modern Ansible Tower.
+2- Execution environment - Containerized runtime for playbook.
+3- Control Plane Vs execution Plane (Decoupled now).
+4- Automation Mesh - Multi-node distributed execution achitecture.
+5- Custom EEs [via container images]
+
+---------------
+Unit-4- Working with Ansible Configuration Settings 
+  
