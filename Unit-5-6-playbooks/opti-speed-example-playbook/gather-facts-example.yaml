@@ -1,0 +1,16 @@
+---
+- name: A play that gathers some facts
+  hosts: dev
+  gather_facts: false
+  tasks:
+    - name: Collect only network-related facts
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - '!min'
+          - network
+      register: output
+
+    - name: Display 
+      ansible.builtin.debug:
+        var: output

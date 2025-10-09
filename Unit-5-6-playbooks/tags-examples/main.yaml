@@ -1,0 +1,15 @@
+---
+- name: tags with role example.
+  hosts: dev
+ # roles:
+    #- { role: databases, tags: ['beta', 'alpha', 'staging'] }
+ #   - { role: databases, tags: ['beta'] 
+
+  tasks:
+    - name: Include roles.
+      ansible.builtin.include_role: 
+        name: databases
+      #tags: ['beta', 'alpha', 'staging' ] 
+      #tags: ['never','beta' ] 
+      #tags: ['never','beta', 'alpha'] 
+      tags: ['never','beta', 'alpha', 'staging' ] 

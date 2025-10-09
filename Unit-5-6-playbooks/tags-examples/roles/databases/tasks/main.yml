@@ -1,0 +1,18 @@
+---
+# tasks file for databases
+- name: Tag Name - beta 
+  ansible.builtin.debug:
+    msg: "Execution tag - Beta"
+  tags: ['beta']
+  changed_when: true
+- name: Tag Name - alpha 
+  ansible.builtin.debug:
+     msg: "Execution tag - alpha"
+  tags: ['alpha'] 
+  changed_when: true
+
+- name: Tag Name - staging 
+  ansible.builtin.debug:
+    msg: "Execution tag - staging"
+  tags: ['staging'] 
+  changed_when: true
