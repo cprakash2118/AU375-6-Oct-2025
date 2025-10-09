@@ -1,0 +1,16 @@
+---
+- name: Include playbook example
+  hosts: dev 
+  tasks:
+    - name: Task01 
+      ansible.builtin.debug:
+        msg: "Task-01 - execution"
+    
+    - name: Task02 - playbook calling via include_playbook modules.
+      ansible.builtin.include_playbook:
+        name: include-playbook-eg-01.yaml
+
+    - name: Task03 - post include_playbook
+      ansible.builtin.debug:
+        msg: "Task-03 - execution"
+

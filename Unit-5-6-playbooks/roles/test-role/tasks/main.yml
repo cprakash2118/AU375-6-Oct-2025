@@ -1,0 +1,6 @@
+---
+# tasks file for test-role
+- name: Multiple service restart - This is part of Role=test-role 
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted 

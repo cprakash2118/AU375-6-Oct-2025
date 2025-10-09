@@ -1,0 +1,11 @@
+---
+- name: include playbook example
+  hosts: dev 
+  tasks:
+    - name: Task - include example1
+      ansible.builtin.debug:
+        msg: "Task-1 - include playbook execution"
+
+    - name: Task - include example2
+      ansible.builtin.debug:
+        msg: "Task-2 - include playbook execution"

@@ -1,0 +1,8 @@
+---
+- name: Variables case discussion.
+  hosts: dev
+  gather_facts: false
+  #vars_files:
+  # - my-var.yaml
+  roles:
+   - apache

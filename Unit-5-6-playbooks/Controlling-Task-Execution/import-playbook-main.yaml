@@ -1,0 +1,16 @@
+---
+- name: import playbook example
+  hosts: dev 
+  tasks:
+    - name: Task01 
+      ansible.builtin.debug:
+        msg: "Task-01 - execution"
+    
+    - name: Task02 - playbook calling via import_playbook modules.
+      ansible.builtin.import_playbook:
+        name: import-playbook-eg-01.yaml
+
+    - name: Task03 - post import_playbook
+      ansible.builtin.debug:
+        msg: "Task-03 - execution"
+

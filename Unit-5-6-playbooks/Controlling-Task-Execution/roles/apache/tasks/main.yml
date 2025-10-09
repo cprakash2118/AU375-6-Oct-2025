@@ -1,0 +1,13 @@
+---
+# tasks file for apache
+- name: Task-01 - from role=apache 
+  ansible.builtin.debug: 
+    msg: "Task-01 - via apache role for myvar1 - {{myvar1}}"
+
+- name: Task-02 - from role=apache 
+  ansible.builtin.debug: 
+    msg: "Task-02 - via apache role for myvar2 - {{myvar2}}"
+
+- name: Task-02 - from role=apache 
+  ansible.builtin.debug: 
+    msg: "Task-03 from apache-role"

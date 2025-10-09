@@ -1,0 +1,40 @@
+---
+- name: WorkFlow 
+  hosts: dev 
+  force_handlers: true
+  tasks:
+    - name:  task01 
+      ansible.builtin.debug:
+         msg: "task01"
+      changed_when: true
+      notify:
+         - Handler01
+
+    - name: task02
+      ansible.builtin.debug:
+         msg: "task02"
+      changed_when: true
+      notify:
+         - Handler02
+
+    - name: task03 
+      ansible.builtin.debug:
+         msg: "Task03"
+      failed_when: true
+
+    - name: Post04 
+      ansible.builtin.debug:
+         msg: "Post04"
+      changed_when: true
+      notify:
+         - Handler03
+  handlers:
+    - name: Handler01
+      ansible.builtin.debug:
+         msg: "Excute - Handler01"
+    - name: Handler02
+      ansible.builtin.debug:
+         msg: "Excute - Handler02"
+    - name: Handler03
+      ansible.builtin.debug:
+         msg: "Excute - Handler03"

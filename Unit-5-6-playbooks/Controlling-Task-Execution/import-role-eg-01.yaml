@@ -1,0 +1,16 @@
+---
+- name: Include role example
+  hosts: dev 
+  tasks:
+    - name: Task01 
+      ansible.builtin.debug:
+        msg: "Task-01 - execution"
+    
+    - name: Task02 - role calling via import_role modules.
+      ansible.builtin.import_role:
+        name: apache 
+
+    - name: Task03 - post import_role
+      ansible.builtin.debug:
+        msg: "Task-03 - execution"
+

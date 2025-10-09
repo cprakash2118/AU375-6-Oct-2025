@@ -1,0 +1,44 @@
+---
+- name: 1st play - Playbook Description - Apache deployment.
+  hosts: dev
+  # vars_files:
+  # - myvar.yaml
+  tasks:
+    - name: Task-01 - Install all required packages.
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ package_list }}"
+
+    - name: Task-02 - Start and enable services.
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true 
+      loop: "{{ service_list }}"
+
+    - name: Task-03 - Deploying application via index.html 
+      ansible.builtin.copy:
+        content: "This ismy web server \n"
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: '0644'
+
+    - name: Task-04 - permit traffic for https/http service
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+        immediate: true 
+      loop: "{{ port_list }}" 
+- name: 2nd play - Verify the apache.
+  hosts: localhost
+  become: false 
+  tasks:
+    - name: Task-01-From-Play-2nd 
+      ansible.builtin.uri:
+        url: http://serverd.lab.example.com
+        return_content: true
+        status_code: 200
+...

@@ -1,0 +1,11 @@
+---
+- name: Import playbook example
+  hosts: dev 
+  tasks:
+    - name: Task - import example1
+      ansible.builtin.debug:
+        msg: "Task-1 - import playbook execution"
+
+    - name: Task - import example2
+      ansible.builtin.debug:
+        msg: "Task-2 - import playbook execution"

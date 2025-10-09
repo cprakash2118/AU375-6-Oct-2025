@@ -1,0 +1,47 @@
+---
+- name: WorkFlow 
+  hosts: dev 
+  pre_tasks:
+    - name: This ROle execution before role via include_role.
+    #- name: This ROle execution before role via import_role.
+      ansible.builtin.include_role: 
+      #ansible.builtin.import_role: 
+         name: apache
+
+    - name: Pre-task - task01 
+      ansible.builtin.debug:
+         msg: "Pre-task - task01"
+      changed_when: true
+      notify:
+         - Handler01
+  roles:
+    - apache
+  tasks:
+    - name: Task - task01 
+      ansible.builtin.debug:
+         msg: "task - task01"
+      changed_when: true
+      notify:
+         - Handler02
+
+  post_tasks:
+    - name: Post-task - task01 
+      ansible.builtin.debug:
+         msg: "Post-task - task01"
+      failed_when: true
+    - name: Post-task - task02 
+      ansible.builtin.debug:
+         msg: "Post-task - task02"
+      changed_when: true
+      notify:
+         - Handler03
+  handlers:
+    - name: Handler01
+      ansible.builtin.debug:
+         msg: "Excute - Handler01"
+    - name: Handler02
+      ansible.builtin.debug:
+         msg: "Excute - Handler02"
+    - name: Handler03
+      ansible.builtin.debug:
+         msg: "Excute - Handler03"
