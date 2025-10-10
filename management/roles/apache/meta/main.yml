@@ -1,0 +1,9 @@
+galaxy_info:
+  author: Student User
+  description: A role to ensure deployment of Apache
+  company: Example, Inc.
+  license: BSD
+  min_ansible_version: "2.15"
+  galaxy_tags: []
+dependencies:
+  - name: firewall

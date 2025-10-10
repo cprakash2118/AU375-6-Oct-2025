@@ -1,0 +1,17 @@
+---
+- name: Variables case discussion.
+  hosts: dev
+  vars_files:
+   - my-var.yaml
+  tasks:
+    - name: Display task-01 using debug module.
+      ansible.builtin.debug: 
+        msg: "List of Packages - {{ pkg_list }}"
+
+    - name: Display task-02 using debug module.
+      ansible.builtin.debug: 
+        msg: "List of Services - {{ svc_list }}"
+
+    - name: Display task-03 using debug module.
+      ansible.builtin.debug: 
+        msg: "Call single variable - {{ username_type }}"

@@ -1,0 +1,32 @@
+---
+# tasks file for apache
+
+- name: Ensure httpd packages are installed
+  ansible.builtin.dnf:
+    name:
+      - httpd
+    state: present
+
+- name: Ensure httpd service is started and enabled
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Customize Apache HTTPD Configuration
+  ansible.builtin.template:
+    src: templates/httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart httpd
+
+- name: Ensure directory exists
+  ansible.builtin.file:
+    path: "{{ webapp_content_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+    setype: _default

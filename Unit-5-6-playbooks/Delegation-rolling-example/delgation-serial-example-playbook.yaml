@@ -1,0 +1,47 @@
+---
+- name: Delegation Example
+  hosts: all
+  serial: 1
+  tasks:
+    - name: Install required packages.
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present 
+      loop: 
+         - httpd
+         - firewalld
+    - name: Start and enable the service.
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started 
+        enabled: true 
+      loop:
+         - httpd
+         - firewalld
+    - name: Deploy application - index.html 
+      ansible.builtin.copy:
+        content: "This is my web server {{ inventory_hostname }}"
+        dest: /var/www/html/index.html 
+        mode: 0644
+    - name: Adding port 
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        immediate: true
+        permanent: true
+        state: enabled
+      loop: 
+         - http
+         - https
+ 
+    - name: Verification 
+      ansible.builtin.uri:
+        url: http://serverd.lab.example.com
+        return_content: true
+        status_code: 200
+      delegate_to: localhost
+      #delegate_to: workstation.lab.example.com
+      register: delegated
+
+    - name: Display localhost system information
+      ansible.builtin.debug:
+        var: delegated

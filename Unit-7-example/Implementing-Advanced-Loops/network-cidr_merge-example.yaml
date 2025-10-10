@@ -1,0 +1,14 @@
+---
+- name: Merge CIDR into minimal repo
+  hosts: localhost
+  gather_facts: no
+  vars:
+    mynetworks:
+      - 10.0.1.0/24
+      - 10.0.2.0/24
+      - 10.0.3.0/24
+      - 10.0.100.0/24
+  tasks:
+    - name: Merge Networks
+      ansible.builtin.debug:
+        msg: "{{ mynetworks |ansible.utils.cidr_merge }}"

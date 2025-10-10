@@ -1,0 +1,12 @@
+---
+- name: Using lookup example
+  hosts: localhost
+  gather_facts: false 
+  vars:
+     file_content: "{{query('ansible.builtin.file','hostname')}}"
+     #file_content: "{{lookup('ansible.builtin.file','/tmp/hostname')}}"
+  tasks:
+   - name: Read data from file.
+     ansible.builtin.debug:
+       #msg: "{{ lookup('ansible.builtin.file', '/tmp/hostname') }}"
+       msg: "{{ file_content }}"

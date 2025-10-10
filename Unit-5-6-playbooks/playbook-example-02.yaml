@@ -1,0 +1,28 @@
+---
+- name: Variables case discussion.
+  hosts: dev
+  tasks:
+    - name: Display task-01 using debug module.
+      vars:
+        - pkg_list:
+          - httpd
+          - firewalld 
+          - rsyslog
+      ansible.builtin.debug: 
+        msg: "List of Packages - {{ pkg_list }}"
+
+    - name: Display task-02 using debug module.
+      vars: 
+        - svc_list:
+          - httpd
+          - firewalld
+          - rsyslog 
+          - sshd 
+      ansible.builtin.debug: 
+        msg: "List of Services - {{ svc_list }}"
+
+    - name: Display task-03 using debug module.
+      vars:
+         - username_type: john-devops
+      ansible.builtin.debug: 
+        msg: "Call single variable - {{ username_type }}"

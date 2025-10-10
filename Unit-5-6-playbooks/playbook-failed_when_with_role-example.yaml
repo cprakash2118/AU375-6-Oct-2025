@@ -1,0 +1,34 @@
+---
+- name: Failed_when example 
+  hosts: dev 
+  become: true
+  roles:
+    - role: test-role
+      vars:
+         ansible_become: true
+      #become: false
+      #ignore_errors: true
+  tasks:
+    - name: Task-01 - Display only - Not part of Role=test-role 
+      ansible.builtin.debug:
+        msg: "This is my 1st task" 
+
+    - name: Task-02 - Shell module - Not part of Role=test-role
+      ansible.builtin.shell: /sbin/lvscan
+      register: output 
+      ignore_errors: true 
+      failed_when: output.rc != 0
+    - name: Check the user.
+      ansible.builtin.shell: logname ; id 
+      register: check_user
+
+    - name: Outcome of Check the user.
+      ansible.builtin.debug:
+         var: check_user    
+
+    - name: Outcome of Check.
+      ansible.builtin.debug:
+         msg: >
+           - "My remote user= {{check_user.stdout_lines[0]}}"
+           - "Become user details - {{check_user.stdout }}"
+

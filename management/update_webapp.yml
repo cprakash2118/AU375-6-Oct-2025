@@ -1,0 +1,44 @@
+---
+- name: Update web servers to use a new document root
+  hosts: web_servers
+  become: true
+  force_handlers: true
+  vars:
+    webapp_content_dir: /srv/web/app/html
+  serial:
+    - 1
+    - 25%
+    - 100%
+  pre_tasks:
+    - name: Remove web server from service during the update
+      community.general.haproxy:
+        state: disabled
+        backend: app
+        host: "{{ inventory_hostname }}"
+      delegate_to: "{{ item }}"
+      loop: "{{ groups['lb_servers'] }}"
+
+  tasks:
+    - name: Ensure Apache HTTP Server is installed and started
+      ansible.builtin.include_role:
+        name: apache
+
+    - name: Ensure web content is deployed
+      ansible.builtin.include_role:
+        name: webapp
+
+  post_tasks:
+    - name: Smoke Test - Ensure HTTP 200 OK
+      ansible.builtin.uri:
+        url: http://{{ inventory_hostname }}:{{ apache_port }}
+        status_code: 200
+      delegate_to: "{{ groups['lb_servers'][0] }}"
+      become: false
+
+    - name: Enable healthy server in load balancers
+      community.general.haproxy:
+        state: enabled
+        backend: app
+        host: "{{ inventory_hostname }}"
+      delegate_to: "{{ item }}"
+      loop: "{{ groups['lb_servers'] }}"

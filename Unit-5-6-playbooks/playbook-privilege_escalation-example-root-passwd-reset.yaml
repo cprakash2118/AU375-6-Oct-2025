@@ -1,0 +1,9 @@
+---
+- name: Restart multiple services.
+  hosts: all 
+  become: true
+  tasks:
+    - name: root password update - 90 days before.
+      ansible.builtin.user:
+        name: root
+        password: "root_pass_var |password_hash('sha512')"

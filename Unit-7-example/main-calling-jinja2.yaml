@@ -1,0 +1,12 @@
+---
+- name: Processing variable example
+  hosts: all
+  tasks:
+    - name: Template a file for processing variable 
+      ansible.builtin.template:
+        src: jija2-example.j2 
+        dest: /tmp/myfile
+        owner: root
+        group: wheel
+        mode: '0644'
+

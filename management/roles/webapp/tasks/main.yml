@@ -1,0 +1,20 @@
+---
+# tasks file for webapp
+
+- name: Ensure directory exists
+  ansible.builtin.file:
+    path: "{{ webapp_content_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+    setype: _default
+
+- name: Ensure web content is deployed
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ webapp_content_dir }}/index.html"
+    owner: root
+    group: root
+    mode: "0644"
+    setype: _default

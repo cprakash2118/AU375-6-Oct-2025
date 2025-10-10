@@ -1,0 +1,12 @@
+---
+- name: Restart multiple services.
+  hosts: all 
+  become: true
+  tasks:
+    - name: Multiple service restart.
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: restarted 
+      loop:
+        - sshd
+        - rsyslog 

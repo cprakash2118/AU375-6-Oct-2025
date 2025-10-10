@@ -1,0 +1,35 @@
+---
+# tasks file for firewall
+
+- name: Ensure Firewall Source Configuration
+  when: item['source'] is defined
+  ansible.posix.firewalld:
+    source: "{{ item['source'] }}"
+    zone: "{{ item['zone'] | default(omit) }}"
+    immediate: true
+    permanent: true
+    state: "{{ item['state'] | default('enabled') }}"
+  loop: "{{ firewall_rules }}"
+  notify: Reload firewalld
+
+- name: Ensure Firewall Service Configuration
+  when: item['service'] is defined
+  ansible.posix.firewalld:
+    service: "{{ item['service'] }}"
+    zone: "{{ item['zone'] | default(omit) }}"
+    immediate: true
+    permanent: true
+    state: "{{ item['state'] | default('enabled') }}"
+  loop: "{{ firewall_rules }}"
+  notify: Reload firewalld
+
+- name: Ensure Firewall Port Configuration
+  when: item['port'] is defined
+  ansible.posix.firewalld:
+    port: "{{ item['port'] }}"
+    zone: "{{ item['zone'] | default(omit) }}"
+    immediate: true
+    permanent: true
+    state: "{{ item['state'] | default('enabled') }}"
+  loop: "{{ firewall_rules }}"
+  notify: Reload firewalld

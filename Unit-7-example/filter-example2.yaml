@@ -1,0 +1,19 @@
+---
+- name: Demo filters.
+  hosts: dev
+  vars:
+    user_list:
+      - name: user1 
+        groups: wheel 
+      - name: user2 
+        shell: /bin/sh
+  tasks:
+  - name: Manage user
+    ansible.builtin.user:
+      name: "{{ item['name'] }}"
+      groups: "{{ item['groups'] | default(omit) }}" 
+      system: "{{ item['system'] | default(false) }}" 
+      shell: "{{ item['shell'] | default('/bin/bash') }}" 
+      state: "{{ item['state'] | default('present') }}" 
+      remove: "{{ item['remove'] | default(false) }}" 
+    loop: "{{ user_list }}"

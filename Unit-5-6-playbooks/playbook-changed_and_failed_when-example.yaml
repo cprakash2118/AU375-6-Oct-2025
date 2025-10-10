@@ -1,0 +1,22 @@
+---
+- name: Failed_when example 
+  hosts: dev 
+  become: true
+  tasks:
+    - name: Task-01 - Display only 
+      ansible.builtin.debug:
+        msg: "This is my 1st task"
+      changed_when: true
+      notify:
+        - testing only
+
+    - name: Task-02 - Shell module 
+      ansible.builtin.shell: /sbin/lvscan
+      register: output 
+      #ignore_errors: true 
+      failed_when: output.rc != 0
+  handlers:
+    - name: testing only
+      ansible.builtin.debug:
+        msg: "This is my Handlers task"
+      

@@ -1,0 +1,13 @@
+---
+- name: Validate usable IPs
+  hosts: localhost
+  gather_facts: no
+  vars:
+   #subnet: "192.0.2.0/24"
+   subnet: "192.0.3.0/24"
+   #ip: "192.0.2.5"
+   ip: "192.0.3.2"
+  tasks:
+    - name: Check if IP belongs to network 
+      ansible.builtin.debug:
+        msg: "{{ subnet | ansible.utils.network_in_usable(ip) }}"

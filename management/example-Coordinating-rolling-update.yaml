@@ -1,0 +1,33 @@
+---
+- name: Rolling update example with tight control.
+  hosts: all 
+  order: shuffle 
+  serial:
+   - 1 
+   - 10% 
+   - 25% 
+  max_fail_percentage: 30
+  
+  tasks:
+    - name: Precheck 
+      ansible.builtin.debug: 
+        msg: "This is precheck"
+    
+    - name: task-02
+      ansible.builtin.debug:
+        msg: "This is my task-02"
+      throttle: 3  # can only reduce concurrency; it can not exceed limits from forks/serial.
+   
+    - name: Task03
+      ansible.builtin.debug:
+        msg: "This is task-03"
+      run_once: true    # Run a task per current batch- 
+      delegate_to: servera.lab.example.com 
+
+
+# Batches that ramp up (1 -> 10% -> 25%) repeating
+# Abort logic (30% failure in a btach stop the play)
+# Host order - random 
+# Task level throttle for heavy steps 
+# run_once per batch vs per play pattern
+

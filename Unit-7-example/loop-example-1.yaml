@@ -1,0 +1,23 @@
+---
+- name: Loop example
+  hosts: dev
+  tasks:
+    - name: Groups creation 
+      ansible.builtin.group:
+        name: "{{ item }}" 
+        state: present 
+      loop: 
+         - unixadm 
+         - dbadm 
+         - winadm 
+    - name: User creation.
+      ansible.builtin.user:
+        name: "{{ item.user_name }}"
+        uid: "{{ item.uid_no}}"
+        group: "{{ item.group_name }}"
+        state: present 
+      loop: 
+         - {user_name: user11 , uid_no: 12311 , group_name: unixadm }
+         - {user_name: user12 , uid_no: 12312 , group_name: dbadm }
+         - {user_name: user13 , uid_no: 12313 , group_name: winadm }
+

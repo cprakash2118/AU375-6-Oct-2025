@@ -1,0 +1,12 @@
+---
+- name: Query lines and pipe
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: get list offile in /etc dir
+      set_fact:
+        etc_files: "{{ query('ansible.builtin.lines', 'ls /etc |head -5')}}"
+    - name: Display each file name.
+      ansible.builtin.debug:
+        msg: "File - {{ item }}"
+      loop: "{{ etc_files }}"

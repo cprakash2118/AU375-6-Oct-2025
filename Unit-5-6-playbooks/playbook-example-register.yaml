@@ -1,0 +1,22 @@
+---
+- name: register and stat moduel 
+  hosts: servera.lab.example.com 
+  tasks:
+    - name: Check the directory path.
+      ansible.builtin.stat:
+        path: /opt/oracle
+      register: check_status 
+
+    - name: Display register info 
+      ansible.builtin.debug:
+        var: check_status
+
+    - name: Display when condition true - register example.
+      ansible.builtin.debug:
+        msg: "COndition ture"
+      when: check_status.stat.exists == false  
+
+    - name: check with shell module.
+      ansible.builtin.shell: ls -ld /opt/oracle
+      ignore_errors: true 
+ 

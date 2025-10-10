@@ -1,0 +1,8 @@
+---
+- name: Example of query with module.
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Print the name message.
+      ansible.builtin.debug: 
+        msg: "{{ query('ansible.builtin.lines', 'ls') }}"

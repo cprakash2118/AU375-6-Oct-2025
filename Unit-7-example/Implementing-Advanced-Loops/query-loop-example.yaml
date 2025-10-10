@@ -1,0 +1,13 @@
+---
+- name: Query multiple files and loop
+  hosts: localhost
+  gather_facts: no
+  vars:
+    file_list:
+      - files/hosts.txt
+      - files/issue.txt
+  tasks:
+    - name: Read contents from multiple files.
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ query('ansible.builtin.file', *file_list) }}"

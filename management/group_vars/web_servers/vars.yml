@@ -1,0 +1,11 @@
+---
+firewall_rules:
+  # Allow HTTP requests from the load_balancer
+  - zone: internal
+    service: http
+  - zone: internal
+    source: "172.25.250.10"
+
+webapp_version: v1.0
+webapp_content_dir: /var/www/html
+apache_port: 80

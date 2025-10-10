@@ -1,0 +1,16 @@
+---
+myvar1: myvar1-value1-from-vars_files
+myvar2: myvar2-value2-from-vars_files
+
+pkg_list:
+ - httpd
+ - firewalld 
+ - rsyslog
+
+svc_list:
+ - httpd
+ - firewalld
+ - rsyslog 
+ - sshd 
+         
+username_type: john-devops

@@ -1,0 +1,13 @@
+---
+- name: Lookup + Loop example
+  hosts: localhost
+  gather_facts: no
+  vars:
+    #users: "{{ lookup('ansible.builtin.file', users.txt) }}" 
+    users: "{{ lookup('file', 'users.txt').splitlines() }}" 
+    #users: "{{ query('ansible.builtin.file', 'users.txt').splitlines() }}" 
+  tasks:
+    - name: Display each user
+      ansible.builtin.debug: 
+        msg: "User -> {{ item }} "
+      loop: "{{ users }}"
